@@ -11,7 +11,6 @@ export class HomeComponent implements OnInit {
     this.lstorage = JSON.parse(localStorage.getItem('questionaire')!);
     !this.lstorage ? localStorage.setItem('questionaire',JSON.stringify([])) : null;
     this.lstorage = JSON.parse(localStorage.getItem('questionaire')!);
-    console.log(this.lstorage)
   }
 
   ngOnInit(): void {

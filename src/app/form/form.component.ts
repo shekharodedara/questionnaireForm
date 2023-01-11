@@ -18,7 +18,7 @@ export class FormComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   submit(f: any) {
     localStorage.setItem('questionaire', JSON.stringify(f));
@@ -41,11 +41,11 @@ export class FormComponent implements OnInit {
     });
   }
 
-  getQuestions(form: any) {    
+  getQuestions(form: any) {
     return form.controls.questions.controls; // console.log(form.controls);
   }
 
-  getOptions(form: any) {    
+  getOptions(form: any) {
     return form.controls.options.controls; //  console.log(form.get('options').controls);
   }
 
@@ -54,7 +54,7 @@ export class FormComponent implements OnInit {
     if (event.value === 'Radio Button') control.push(this.options());
   }
 
-  addQuestion() {    
+  addQuestion() {
     const control = <FormArray>this.form.get('questions'); // this.question.push(this.fb.control('', Validators.required));
     control.push(this.questions());
   }
