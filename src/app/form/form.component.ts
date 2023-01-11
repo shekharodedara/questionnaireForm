@@ -10,8 +10,6 @@ import { Router } from '@angular/router';
 export class FormComponent implements OnInit {
   qType: any = ['Short Question', 'Long Question', 'Radio Button'];
   form: FormGroup;
-  id: number = 0;
-  flag: boolean = false;
   lstorage: any;
 
   constructor(public fb: FormBuilder, public router: Router) {
@@ -21,8 +19,10 @@ export class FormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.lstorage = JSON.parse(localStorage.getItem('questionaire')!);
-    if (this.lstorage) {
+    this.lstorage = !JSON.parse(localStorage.getItem('questionaire')!)
+      ? localStorage.setItem('questionaire', JSON.stringify([]))
+      : JSON.parse(localStorage.getItem('questionaire')!);
+    if (this.lstorage.length > 0) {
       this.deleteQuestion(0);
       for (let i = 0; i <= this.lstorage[0].questions.length - 1; i++) {
         console.log(i);
@@ -39,7 +39,7 @@ export class FormComponent implements OnInit {
 
   submit(f: any) {
     localStorage.setItem('questionaire', JSON.stringify([f]));
-    this.router.navigate(['/home'])
+    this.router.navigate(['/home']);
   }
 
   options() {
