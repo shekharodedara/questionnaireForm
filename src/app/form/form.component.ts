@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-form',
@@ -13,29 +14,32 @@ export class FormComponent implements OnInit {
   flag: boolean = false;
   lstorage: any;
 
-  constructor(public fb: FormBuilder) {
+  constructor(public fb: FormBuilder, public router: Router) {
     this.form = fb.group({
       questions: fb.array([this.questions()]),
-    });    
+    });
   }
 
   ngOnInit(): void {
-    // this.lstorage = JSON.parse(localStorage.getItem('questionaire')!)
-    // for (let i = 0; i<=this.lstorage[0].questions;i++) {
-    //     const control = <FormArray>this.form.get('questions');
-    //     control.push(this.questions());
-    //     if (this.lstorage[0].questions[i].questionType === 'Radio Button') {
-    //       const control = <FormArray>this.form.get(['questions', i, 'options']);
-    //       control.push(this.options());
-    //   }
-    // }
-    // setTimeout(() => {
-    //   this.form.setValue(this.lstorage[0])
-    // }, 0);
+    this.lstorage = JSON.parse(localStorage.getItem('questionaire')!);
+    if (this.lstorage) {
+      this.deleteQuestion(0);
+      for (let i = 0; i <= this.lstorage[0].questions.length - 1; i++) {
+        console.log(i);
+        const control = <FormArray>this.form.get('questions');
+        control.push(this.questions());
+        if (this.lstorage[0].questions[i].questionType === 'Radio Button') {
+          const control = <FormArray>this.form.get(['questions', i, 'options']);
+          control.push(this.options());
+        }
+      }
+      this.form.setValue(this.lstorage[0]);
+    }
   }
 
   submit(f: any) {
-    localStorage.setItem('questionaire', JSON.stringify(f));
+    localStorage.setItem('questionaire', JSON.stringify([f]));
+    this.router.navigate(['/home'])
   }
 
   options() {
@@ -73,8 +77,8 @@ export class FormComponent implements OnInit {
     control.push(this.questions());
   }
 
-  deleteQuestion(i:any){
-    const control = <FormArray>this.form.get(['questions'])
+  deleteQuestion(i: any) {
+    const control = <FormArray>this.form.get(['questions']);
     control.removeAt(i);
   }
 }
