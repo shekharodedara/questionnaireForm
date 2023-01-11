@@ -1,0 +1,28 @@
+<button mat-raised-button color="primary" routerLink="/form">Create Form</button>
+<br>
+<br>
+<hr>
+<div *ngFor="let item of lstorage">
+    <div *ngFor="let row of item.questions">
+        <div *ngIf="row.questionType === 'Radio Button'">
+            <label>Question: {{row.questionTitle}}</label><br><br>
+            <div *ngFor="let ops of row.options">
+                <mat-radio-group aria-label="Select an option">
+                    <mat-radio-button value="{{ops.optionTitle1}}">{{ops.optionTitle1}}</mat-radio-button><br>
+                    <mat-radio-button value="{{ops.optionTitle2}}">{{ops.optionTitle2}}</mat-radio-button>
+                </mat-radio-group>
+            </div>
+            <hr>
+        </div>
+
+        <div *ngIf="row.questionType == 'Short Question' || row.questionType == 'Long Question'">
+            <label>Question: {{row.questionTitle}}</label><br><br>
+            <div class="example-form">
+                <mat-form-field appearance="fill" class="example-full-width">
+                    <mat-label>Answer: </mat-label>
+                    <input matInput placeholder="Enter Question">
+                </mat-form-field>
+            </div>
+            <hr>
+        </div>
+    </div>

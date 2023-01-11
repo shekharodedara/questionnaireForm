@@ -1,0 +1,50 @@
+<form [formGroup]="form"  (ngSubmit)="submit(form.value)">
+  <!-- novalidate -->
+  
+  <div formArrayName="questions" *ngFor="let ques of getQuestions(form); let i = index">
+    <div [formGroupName]="i">
+    <div class="example-form">
+      <mat-form-field appearance="fill" class="example-full-width">
+        <mat-label>Question: </mat-label>
+        <input matInput placeholder="Enter Question" formControlName="questionTitle">
+      </mat-form-field>
+    </div>
+  
+  
+    <mat-form-field appearance="fill">
+      <mat-label>Question Type</mat-label>
+      <mat-select (selectionChange)="questionType($event, i)" formControlName="questionType">
+        <mat-option *ngFor="let q of qType" [value]="q">
+          {{q}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  
+
+
+<div formArrayName="options">
+<div [formGroupName]="j" *ngFor="let option of getOptions(ques); let j = index">
+    <div class="example-form">
+      <mat-form-field appearance="fill" class="example-full-width">
+        <mat-label>Option: {{j}}</mat-label>
+        <input matInput placeholder="Enter Option {{j}}" formControlName="optionTitle1">
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="example-full-width">
+        <mat-label>Option: {{j}}</mat-label>
+        <input matInput placeholder="Enter Option {{j}}" formControlName="optionTitle2">
+      </mat-form-field>
+    </div>
+  </div>
+</div>
+</div>
+<hr>
+</div>
+
+  <br>
+  <button type="submit" mat-raised-button color="primary">Submit</button>
+
+</form>
+
+<br>
+<button type="submit" mat-raised-button color="primary" (click)="addQuestion()">Add Question</button>
