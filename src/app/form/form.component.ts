@@ -11,14 +11,28 @@ export class FormComponent implements OnInit {
   form: FormGroup;
   id: number = 0;
   flag: boolean = false;
+  lstorage: any;
 
   constructor(public fb: FormBuilder) {
     this.form = fb.group({
       questions: fb.array([this.questions()]),
-    });
+    });    
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    // this.lstorage = JSON.parse(localStorage.getItem('questionaire')!)
+    // for (let i = 0; i<=this.lstorage[0].questions;i++) {
+    //     const control = <FormArray>this.form.get('questions');
+    //     control.push(this.questions());
+    //     if (this.lstorage[0].questions[i].questionType === 'Radio Button') {
+    //       const control = <FormArray>this.form.get(['questions', i, 'options']);
+    //       control.push(this.options());
+    //   }
+    // }
+    // setTimeout(() => {
+    //   this.form.setValue(this.lstorage[0])
+    // }, 0);
+  }
 
   submit(f: any) {
     localStorage.setItem('questionaire', JSON.stringify(f));
@@ -55,7 +69,12 @@ export class FormComponent implements OnInit {
   }
 
   addQuestion() {
-    const control = <FormArray>this.form.get('questions'); // this.question.push(this.fb.control('', Validators.required));
+    const control = <FormArray>this.form.get('questions');
     control.push(this.questions());
+  }
+
+  deleteQuestion(i:any){
+    const control = <FormArray>this.form.get(['questions'])
+    control.removeAt(i);
   }
 }
