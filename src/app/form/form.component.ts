@@ -70,6 +70,7 @@ export class FormComponent implements OnInit {
   questionType(event: any, i: any) {
     const control = <FormArray>this.form.get(['questions', i, 'options']);
     if (event.value === 'Radio Button') control.push(this.options());
+    if (event.value !== 'Radio Button') control.removeAt(i);
   }
 
   addQuestion() {
