@@ -3,11 +3,12 @@
 <br><br>
 <hr>
 <div *ngFor="let item of lstorage">
-    <div *ngFor="let row of item.questions">
+    <div *ngFor="let row of item.questions; let i = index">
         <div *ngIf="row.questionType === 'Radio Button'">
-            <label>Question: {{row.questionTitle}}</label><br><br>
+            <label>Question({{i+1}}): {{row.questionTitle}}</label><br><br>
             <div *ngFor="let ops of row.options">
                 <mat-radio-group aria-label="Select an option">
+                    <label>Answer:</label><br>
                     <mat-radio-button value="{{ops.optionTitle1}}">{{ops.optionTitle1}}</mat-radio-button><br>
                     <mat-radio-button value="{{ops.optionTitle2}}">{{ops.optionTitle2}}</mat-radio-button>
                 </mat-radio-group>
@@ -16,7 +17,7 @@
         </div>
 
         <div *ngIf="row.questionType == 'Short Question' || row.questionType == 'Long Question'">
-            <label>Question: {{row.questionTitle}}</label><br><br>
+            <label>Question({{i+1}}): {{row.questionTitle}}</label><br><br>
             <div class="example-form">
                 <mat-form-field appearance="fill" class="example-full-width">
                     <mat-label>Answer: </mat-label>
