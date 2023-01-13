@@ -59,15 +59,14 @@ export class FormComponent implements OnInit {
   }
 
   getQuestions(form: any) {
-    return form.controls.questions.controls; // console.log(form.controls);
+    return form.controls.questions.controls; // form.get('questions').controls
   }
 
   getOptions(form: any) {
-    return form.controls.options.controls; //  console.log(form.get('options').controls);
+    return form.get('options').controls  // form.controls.options.controls
   }
 
   questionType(event: any, i: any) {
-    console.log(i)
     const control = <FormArray>this.form.get(['questions', i, 'options']);
     if (event.value === 'Radio Button') control.push(this.options());
     else control.clear();
@@ -79,7 +78,7 @@ export class FormComponent implements OnInit {
   }
 
   deleteQuestion(i: any) {
-    const control = <FormArray>this.form.get(['questions']);
+    const control = <FormArray>this.form.get('questions');
     control.removeAt(i);
   }
 }
