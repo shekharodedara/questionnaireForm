@@ -25,7 +25,6 @@ export class FormComponent implements OnInit {
     if (this.lstorage.length > 0) {
       this.deleteQuestion(0);
       for (let i = 0; i <= this.lstorage[0].questions.length - 1; i++) {
-        console.log(i);
         const control = <FormArray>this.form.get('questions');
         control.push(this.questions());
         if (this.lstorage[0].questions[i].questionType === 'Radio Button') {
@@ -68,9 +67,10 @@ export class FormComponent implements OnInit {
   }
 
   questionType(event: any, i: any) {
+    console.log(i)
     const control = <FormArray>this.form.get(['questions', i, 'options']);
     if (event.value === 'Radio Button') control.push(this.options());
-    if (event.value !== 'Radio Button') control.removeAt(i);
+    else control.clear();
   }
 
   addQuestion() {
